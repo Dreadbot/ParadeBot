@@ -8,12 +8,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.drive.DriveCommand;
+import frc.robot.commands.sound.RickRollSound;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.SoundSystem;
 import util.controls.DreadbotController;
 
 public class RobotContainer {
   DreadbotController primaryController = new DreadbotController(0);
   Drive drive = new Drive(DriveConstants.LEFT_MOTOR_ID, DriveConstants.RIGHT_MOTOR_ID);
+  SoundSystem soundSystem = new SoundSystem();
 
   public RobotContainer() {
     configureBindings();
@@ -22,5 +25,6 @@ public class RobotContainer {
   private void configureBindings() {
     DriveCommand driveCommand = new DriveCommand(drive, primaryController::getYAxis, primaryController::getZAxis);
     drive.setDefaultCommand(driveCommand);
+    primaryController.getAButton().onTrue(new RickRollSound(soundSystem));
   }
 }
