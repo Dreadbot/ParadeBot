@@ -11,8 +11,9 @@ public class Drive extends DreadbotSubsystem {
     private WPI_TalonSRX rightMotor;
 
     public Drive(int leftMotorId, int rightMotorId) {
-        this.leftMotor = new WPI_TalonSRX(leftMotorId);
-        this.rightMotor = new WPI_TalonSRX(rightMotorId);
+        leftMotor = new WPI_TalonSRX(leftMotorId);
+        rightMotor = new WPI_TalonSRX(rightMotorId);
+        leftMotor.setInverted(true);
         diffDrive = new DifferentialDrive(this.leftMotor, this.rightMotor);
     }
 

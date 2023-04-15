@@ -17,6 +17,7 @@ public class DriveCommand extends CommandBase {
         this.drive = drive;
         this.joystickForwardAxis = joystickForwardAxis;
         this.joystickRotationalAxis = joystickRotationalAxis;
+        addRequirements(drive);
     }
 
     @Override
