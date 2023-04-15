@@ -15,6 +15,7 @@ public class SoundSystem extends DreadbotSubsystem {
     public SoundSystem() {}
 
     public void startSound(int relayId) {
+        System.out.printf("Starting relay %d%n", relayId);
         relays[relayId].set(Value.kForward);
     }
 

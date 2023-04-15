@@ -8,7 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.drive.DriveCommand;
+import frc.robot.commands.sound.CannonSound;
 import frc.robot.commands.sound.RickRollSound;
+import frc.robot.commands.sound.BattleReadySound;
+import frc.robot.commands.sound.SetToCourseSound;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.SoundSystem;
 import util.controls.DreadbotController;
@@ -25,6 +28,9 @@ public class RobotContainer {
   private void configureBindings() {
     DriveCommand driveCommand = new DriveCommand(drive, primaryController::getYAxis, primaryController::getZAxis);
     drive.setDefaultCommand(driveCommand);
-    primaryController.getAButton().onTrue(new RickRollSound(soundSystem));
+    primaryController.getBButton().whileTrue(new CannonSound(soundSystem));
+    primaryController.getXButton().whileTrue(new BattleReadySound(soundSystem));
+    primaryController.getYButton().whileTrue(new SetToCourseSound(soundSystem));
+    primaryController.getAButton().whileTrue(new RickRollSound(soundSystem));
   }
 }
