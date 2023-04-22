@@ -11,4 +11,7 @@ public class Constants {
         public static final int SOMETHING_ID = 1;
         public static final int TURRET_ID = 2;
     }
+    public static class SmokestackConstants {
+        public static final double electromagnetActivePower = 1.0;
+    }
 }

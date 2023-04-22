@@ -8,29 +8,36 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.drive.DriveCommand;
+import frc.robot.commands.smokestack.ElectromagnetPull;
+import frc.robot.commands.smokestack.ElectromagnetPush;
 import frc.robot.commands.sound.CannonSound;
 import frc.robot.commands.sound.RickRollSound;
 import frc.robot.commands.sound.BattleReadySound;
 import frc.robot.commands.sound.SetToCourseSound;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Electromagnet;
 import frc.robot.subsystems.SoundSystem;
 import util.controls.DreadbotController;
 
 public class RobotContainer {
   DreadbotController primaryController = new DreadbotController(0);
-  Drive drive = new Drive(DriveConstants.LEFT_MOTOR_ID, DriveConstants.RIGHT_MOTOR_ID);
-  SoundSystem soundSystem = new SoundSystem();
+  // Drive drive = new Drive(DriveConstants.LEFT_MOTOR_ID, DriveConstants.RIGHT_MOTOR_ID);
+  // SoundSystem soundSystem = new SoundSystem();
+  Electromagnet electromagnet = new Electromagnet();
 
   public RobotContainer() {
     configureBindings();
   }
 
   private void configureBindings() {
-    DriveCommand driveCommand = new DriveCommand(drive, primaryController::getYAxis, primaryController::getZAxis);
-    drive.setDefaultCommand(driveCommand);
-    primaryController.getBButton().whileTrue(new CannonSound(soundSystem));
-    primaryController.getXButton().whileTrue(new BattleReadySound(soundSystem));
-    primaryController.getYButton().whileTrue(new SetToCourseSound(soundSystem));
-    primaryController.getAButton().whileTrue(new RickRollSound(soundSystem));
+    // DriveCommand driveCommand = new DriveCommand(drive, primaryController::getYAxis, primaryController::getZAxis);
+    // drive.setDefaultCommand(driveCommand);
+    // primaryController.getBButton().whileTrue(new CannonSound(soundSystem));
+    // primaryController.getXButton().whileTrue(new BattleReadySound(soundSystem));
+    // primaryController.getYButton().whileTrue(new SetToCourseSound(soundSystem));
+    // primaryController.getAButton().whileTrue(new RickRollSound(soundSystem));
+
+    primaryController.getAButton().whileTrue(new ElectromagnetPull(electromagnet));
+    primaryController.getBButton().whileTrue(new ElectromagnetPush(electromagnet));
   }
 }
