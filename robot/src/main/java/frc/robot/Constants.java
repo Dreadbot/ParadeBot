@@ -14,4 +14,7 @@ public class Constants {
     public static class SmokestackConstants {
         public static final double electromagnetActivePower = 1.0;
     }
+    public static class TurretConstants {
+        public static final double SPEED_LIMITER= 0.25;
+    }
 }
