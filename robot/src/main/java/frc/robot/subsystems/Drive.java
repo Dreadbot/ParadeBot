@@ -21,12 +21,14 @@ public class Drive extends DreadbotSubsystem {
         diffDrive.arcadeDrive(xSpeed, zRotation);
     }
 
+    @Override
     public void close() {
         stopMotors();
         leftMotor.close();
         rightMotor.close();
     }
-
+    
+    @Override
     public void stopMotors() {
         arcadeDrive(0, 0);
     }

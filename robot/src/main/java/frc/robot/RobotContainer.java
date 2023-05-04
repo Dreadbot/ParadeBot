@@ -12,13 +12,17 @@ import frc.robot.commands.sound.CannonSound;
 import frc.robot.commands.sound.RickRollSound;
 import frc.robot.commands.sound.BattleReadySound;
 import frc.robot.commands.sound.SetToCourseSound;
+import frc.robot.commands.turret.TurretCommand;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.SoundSystem;
+import frc.robot.subsystems.Turret;
 import util.controls.DreadbotController;
 
 public class RobotContainer {
   DreadbotController primaryController = new DreadbotController(0);
+  DreadbotController secondaryController = new DreadbotController(1);
   Drive drive = new Drive(DriveConstants.LEFT_MOTOR_ID, DriveConstants.RIGHT_MOTOR_ID);
+  Turret turret = new Turret();
   SoundSystem soundSystem = new SoundSystem();
 
   public RobotContainer() {
@@ -28,6 +32,8 @@ public class RobotContainer {
   private void configureBindings() {
     DriveCommand driveCommand = new DriveCommand(drive, primaryController::getYAxis, primaryController::getZAxis);
     drive.setDefaultCommand(driveCommand);
+    TurretCommand turretComand = new TurretCommand(turret, secondaryController::getXAxis);
+    turret.setDefaultCommand(turretComand);
     primaryController.getBButton().whileTrue(new CannonSound(soundSystem));
     primaryController.getXButton().whileTrue(new BattleReadySound(soundSystem));
     primaryController.getYButton().whileTrue(new SetToCourseSound(soundSystem));
