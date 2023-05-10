@@ -3,7 +3,9 @@ package frc.robot.commands.drive;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drive;
 import util.math.DreadbotMath;
 
@@ -11,7 +13,7 @@ public class DriveCommand extends CommandBase {
     private Drive drive;
     private final DoubleSupplier joystickForwardAxis;
     private final DoubleSupplier joystickRotationalAxis;
-    private final SlewRateLimiter driveSlew = new SlewRateLimiter(.5);
+    private final SlewRateLimiter driveSlew = new SlewRateLimiter(.25);
 
     public DriveCommand(Drive drive, DoubleSupplier joystickForwardAxis, DoubleSupplier joystickRotationalAxis) {
         this.drive = drive;
@@ -22,7 +24,11 @@ public class DriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        double forwardSpeed = driveSlew.calculate(joystickForwardAxis.getAsDouble());
-        drive.arcadeDrive(forwardSpeed, joystickRotationalAxis.getAsDouble());
+        double joystickForwardSpeed = DreadbotMath.applyDeadbandToValue(joystickForwardAxis.getAsDouble(), DriveConstants.DEADBAND) * DriveConstants.SPEED_LIMITER;
+        double forwardSpeed = driveSlew.calculate(joystickForwardSpeed);
+        SmartDashboard.putNumber("speed", forwardSpeed);
+        SmartDashboard.putNumber("turn", joystickRotationalAxis.getAsDouble() * DriveConstants.SPEED_LIMITER);
+
+        drive.arcadeDrive(forwardSpeed, joystickRotationalAxis.getAsDouble() * DriveConstants.SPEED_LIMITER);
     }
 }
