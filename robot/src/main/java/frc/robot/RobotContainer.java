@@ -41,11 +41,9 @@ public class RobotContainer {
     turret.setDefaultCommand(turretComand);
     ElectromagnetCommand electromagnetCommand = new ElectromagnetCommand(electromagnet);
     electromagnet.setDefaultCommand(electromagnetCommand);
-    primaryController.getBButton().whileTrue(new CannonSound(soundSystem));
-    primaryController.getXButton().whileTrue(new BattleReadySound(soundSystem));
-    primaryController.getYButton().whileTrue(new SetToCourseSound(soundSystem));
-    primaryController.getAButton().whileTrue(new RickRollSound(soundSystem));
-    secondaryController.getAButton().whileTrue(new ElectromagnetPull(electromagnet));
-    secondaryController.getBButton().whileTrue(new ElectromagnetPush(electromagnet));
+    secondaryController.getBButton().whileTrue(new CannonSound(soundSystem));
+    secondaryController.getXButton().whileTrue(new BattleReadySound(soundSystem));
+    secondaryController.getYButton().whileTrue(new SetToCourseSound(soundSystem));
+    secondaryController.getAButton().whileTrue(new RickRollSound(soundSystem));
   }
 }
