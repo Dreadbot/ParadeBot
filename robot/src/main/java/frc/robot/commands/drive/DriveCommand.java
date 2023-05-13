@@ -13,7 +13,7 @@ public class DriveCommand extends CommandBase {
     private Drive drive;
     private final DoubleSupplier joystickForwardAxis;
     private final DoubleSupplier joystickRotationalAxis;
-    private final SlewRateLimiter driveSlew = new SlewRateLimiter(.25);
+    private final SlewRateLimiter driveSlew = new SlewRateLimiter(DriveConstants.SLEW_RATE);
 
     public DriveCommand(Drive drive, DoubleSupplier joystickForwardAxis, DoubleSupplier joystickRotationalAxis) {
         this.drive = drive;
@@ -24,8 +24,8 @@ public class DriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        double joystickForwardSpeed = DreadbotMath.applyDeadbandToValue(joystickForwardAxis.getAsDouble(), DriveConstants.DEADBAND) * DriveConstants.SPEED_LIMITER;
-        double forwardSpeed = driveSlew.calculate(joystickForwardSpeed);
+        
+        double forwardSpeed = drive.brushedDriveSlew(joystickForwardAxis.getAsDouble());
         SmartDashboard.putNumber("speed", forwardSpeed);
         SmartDashboard.putNumber("turn", joystickRotationalAxis.getAsDouble() * DriveConstants.SPEED_LIMITER);
 

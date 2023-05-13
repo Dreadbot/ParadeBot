@@ -4,10 +4,10 @@ public class Constants {
     public static class DriveConstants {
         public static final int LEFT_MOTOR_ID = 1;
         public static final int RIGHT_MOTOR_ID = 2;
-        public static final double SPEED_LIMITER = 0.7;
-        public static final double POSITIVE_SLEW_LIMIT = 0.25;
-        public static final double NEGATIVE_RATE_LIMIT = 0.5;
+        public static final double SPEED_LIMITER = 0.5;
+        public static final double SLEW_RATE = 0.1;
         public static final double DEADBAND = 0.08;
+        public static final double MIN_SPEED = 0.2;
 
     }
     public static class SoundSystemConstants {
