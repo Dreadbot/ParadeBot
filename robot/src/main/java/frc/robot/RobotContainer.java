@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.drive.DriveCommand;
+import frc.robot.commands.smokestack.ElectromagnetCommand;
 import frc.robot.commands.smokestack.ElectromagnetPull;
 import frc.robot.commands.smokestack.ElectromagnetPush;
 import frc.robot.commands.sound.CannonSound;
@@ -38,6 +39,8 @@ public class RobotContainer {
     drive.setDefaultCommand(driveCommand);
     TurretCommand turretComand = new TurretCommand(turret, secondaryController::getXAxis);
     turret.setDefaultCommand(turretComand);
+    ElectromagnetCommand electromagnetCommand = new ElectromagnetCommand(electromagnet);
+    electromagnet.setDefaultCommand(electromagnetCommand);
     primaryController.getBButton().whileTrue(new CannonSound(soundSystem));
     primaryController.getXButton().whileTrue(new BattleReadySound(soundSystem));
     primaryController.getYButton().whileTrue(new SetToCourseSound(soundSystem));
